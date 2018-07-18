@@ -1,8 +1,8 @@
 import json
 
 import broker
-import server_manager
-import server_packet
+import manager
+import packet
 from log import log
 import timer
 import time
@@ -20,7 +20,7 @@ class Server:
         self.status = None
 
 
-class RegistrationManager(server_manager.Manager):
+class RegistrationManager(manager.Manager):
 
     def __init__(self, servers):
         self.servers = servers
@@ -74,7 +74,7 @@ class RegistrationManager(server_manager.Manager):
                     server_ip = None
                     server_port = None
 
-                pk = server_packet.Packet(json.dumps(dict(data=dict(server_handle=server_handle, server_ip=server_ip, server_port=server_port))), broker.PACKET_ID_REQUEST_SERVER_INFO)
+                pk = packet.Packet(json.dumps(dict(data=dict(server_handle=server_handle, server_ip=server_ip, server_port=server_port))), broker.PACKET_ID_REQUEST_SERVER_INFO)
                 clnthndlr.send_packet(pk)
 
         except Exception as e:
@@ -99,7 +99,7 @@ class RegistrationManager(server_manager.Manager):
 
         if not self.is_pinging:
             if (time.time() // 1) % PING_DELAY == 0:
-                pk = server_packet.Packet(json.dumps(dict(data="SEND_STATUS")), broker.PACKET_ID_STATUS)
+                pk = packet.Packet(json.dumps(dict(data="SEND_STATUS")), broker.PACKET_ID_STATUS)
                 clnthndlr.send_packet(pk)
                 self.is_pinging = True
                 self.timer.reset()

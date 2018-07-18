@@ -6,8 +6,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6 (py) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ProxyServer" />
     <orderEntry type="library" name="R User Library" level="project" />
     <orderEntry type="library" name="R Skeletons" level="application" />
+    <orderEntry type="module" module-name="ProxyServer" />
+    <orderEntry type="module" module-name="ProxyLib" />
   </component>
 </module>
