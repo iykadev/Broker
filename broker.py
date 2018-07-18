@@ -50,17 +50,15 @@ if __name__ == "__main__":
 
     log("Server Started!\n")
 
-    (host, port) = load.load_server_data("serverinfo", "dat")
+    (broker_ip, broker_port) = load.load_server_data("serverinfo", "dat")
 
-    s = ssh.init_socket(host, port, 5)
-
-    ssh.set_server_name("Broker")
+    s = ssh.init_socket(broker_ip, broker_port, 5)
 
     servers = dict()
 
     while True:
         conn, addr = s.accept()
-        clnthndlr = ssh.generate_client_handler(host=host, port=port, client_name="Test Server", conn=conn, addr=addr, call_back=_handle_client, call_back_args=(servers, ))
+        clnthndlr = ssh.generate_handler(self_name="Broker", peer_name="Client", conn=conn, self_ip=broker_ip, self_port=broker_port, peer_ip=addr[0], peer_port=addr[1], call_back=_handle_client, call_back_args=(servers, ))
         clnthndlr.handle_connection()
 
     s.close()
