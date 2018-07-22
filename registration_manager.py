@@ -13,6 +13,8 @@ PING_TIME_OUT = 5
 
 
 class Server:
+    __slots__ = ['clnthndlr', 'server_handle', 'server_ip', 'server_port', 'status']
+
     def __init__(self, clnthndlr, server_handle, server_ip, server_port):
         self.clnthndlr = clnthndlr
         self.server_handle = server_handle
@@ -22,6 +24,7 @@ class Server:
 
 
 class RegistrationManager(manager.Manager):
+    __slots__ = ['servers', 'is_pinging', 'timer']
 
     def __init__(self, servers):
         self.servers = servers

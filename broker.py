@@ -56,9 +56,12 @@ if __name__ == "__main__":
 
     servers = dict()
 
+    connCount = 0
+
     while True:
         conn, addr = s.accept()
-        clnthndlr = ssh.generate_handler(self_name="Broker", peer_name="Client", conn=conn, self_ip=broker_ip, self_port=broker_port, peer_ip=addr[0], peer_port=addr[1], call_back=_handle_client, call_back_args=(servers, ))
+        clnthndlr = ssh.generate_handler(self_name="Broker", peer_name="Client " + str(connCount), conn=conn, self_ip=broker_ip, self_port=broker_port, peer_ip=addr[0], peer_port=addr[1], call_back=_handle_client, call_back_args=(servers, ))
         clnthndlr.handle_connection()
+        connCount += 1
 
     s.close()
